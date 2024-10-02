@@ -4,6 +4,67 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type HeroDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Hero documents
+ */
+interface HeroDocumentData {
+  /**
+   * Slice Zone field in *Hero*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HeroDocumentDataSlicesSlice> /**
+   * Meta Title field in *Hero*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: hero.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Hero*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: hero.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Hero*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Hero document from Prismic
+ *
+ * - **API ID**: `hero`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HeroDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<HeroDocumentData>, "hero", Lang>;
+
 type PageDocumentDataSlicesSlice = RichTextSlice;
 
 /**
@@ -76,7 +137,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = PageDocument;
+export type AllDocumentTypes = HeroDocument | PageDocument;
 
 /**
  * Primary content in *RichText → Default → Primary*
@@ -123,33 +184,6 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
-/**
- * Default variation for Title Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type TitleSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *Title*
- */
-type TitleSliceVariation = TitleSliceDefault;
-
-/**
- * Title Shared Slice
- *
- * - **API ID**: `title`
- * - **Description**: Title
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type TitleSlice = prismic.SharedSlice<"title", TitleSliceVariation>;
-
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -171,6 +205,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      HeroDocument,
+      HeroDocumentData,
+      HeroDocumentDataSlicesSlice,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
@@ -179,9 +216,6 @@ declare module "@prismicio/client" {
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
-      TitleSlice,
-      TitleSliceVariation,
-      TitleSliceDefault,
     };
   }
 }

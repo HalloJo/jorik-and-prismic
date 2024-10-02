@@ -4,5 +4,4 @@ import dynamic from "next/dynamic";
 
 export const components = {
   rich_text: dynamic(() => import("./RichText")),
-  title: dynamic(() => import("./Title")),
 };
