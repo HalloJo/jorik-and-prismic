@@ -6,7 +6,7 @@ module.exports = {
     "./src/slices/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extends: {},
     fontSize: {
       sm: "0.8rem",
       base: "1rem",
