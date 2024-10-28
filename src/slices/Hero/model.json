@@ -12,13 +12,11 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "heading": {
-          "type": "StructuredText",
+        "primary_heading": {
+          "type": "Text",
           "config": {
-            "label": "Heading",
-            "placeholder": "",
-            "allowTargetBlank": true,
-            "multi": "heading1"
+            "label": "Primary heading",
+            "placeholder": "Heading for section"
           }
         },
         "description": {
@@ -52,6 +50,13 @@
             "label": "Image",
             "constraint": {},
             "thumbnails": []
+          }
+        },
+        "text_field": {
+          "type": "Text",
+          "config": {
+            "label": "Text field",
+            "placeholder": "Type some text.."
           }
         }
       },

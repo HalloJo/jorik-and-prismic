@@ -18,12 +18,15 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className="container bg-white"
     >
-      <PrismicRichText field={slice.primary.heading} />
+      <h1 className="text-3xl font-extrabold">
+        {slice.primary.primary_heading}
+      </h1>
       <PrismicRichText field={slice.primary.description} />
       <ButtonLink field={slice.primary.button_link}>
         {slice.primary.button_label}
       </ButtonLink>
       <PrismicNextImage field={slice.primary.image} />
+      <p className="font-bold text-red-600">{slice.primary.text_field}</p>
     </section>
   );
 };

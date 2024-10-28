@@ -144,14 +144,14 @@ export type AllDocumentTypes = HeroDocument | PageDocument;
  */
 export interface HeroSliceDefaultPrimary {
   /**
-   * Heading field in *Hero → Default → Primary*
+   * Primary heading field in *Hero → Default → Primary*
    *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.heading
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Field Type**: Text
+   * - **Placeholder**: Heading for section
+   * - **API ID Path**: hero.default.primary.primary_heading
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  heading: prismic.RichTextField;
+  primary_heading: prismic.KeyTextField;
 
   /**
    * Description field in *Hero → Default → Primary*
@@ -192,6 +192,16 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * Text field field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Type some text..
+   * - **API ID Path**: hero.default.primary.text_field
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  text_field: prismic.KeyTextField;
 }
 
 /**
