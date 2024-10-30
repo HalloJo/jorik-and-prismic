@@ -22,11 +22,25 @@
           "single": "heading1"
         }
       },
+      "services_list": {
+        "type": "Link",
+        "config": {
+          "label": "Services list",
+          "select": "document",
+          "customtypes": ["services_list_component"]
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "services_grid": {
+              "type": "SharedSlice"
+            },
+            "service_card": {
+              "type": "SharedSlice"
+            },
             "hero": {
               "type": "SharedSlice"
             },

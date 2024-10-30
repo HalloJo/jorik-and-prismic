@@ -65,7 +65,11 @@ interface HeroDocumentData {
 export type HeroDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<HeroDocumentData>, "hero", Lang>;
 
-type PageDocumentDataSlicesSlice = HeroSlice | RichTextSlice;
+type PageDocumentDataSlicesSlice =
+  | ServicesGridSlice
+  | ServiceCardSlice
+  | HeroSlice
+  | RichTextSlice;
 
 /**
  * Content for Page documents
@@ -81,6 +85,17 @@ interface PageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   title: prismic.TitleField;
+
+  /**
+   * Services list field in *Page*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.services_list
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  services_list: prismic.ContentRelationshipField<"services_list_component">;
 
   /**
    * Slice Zone field in *Page*
@@ -137,7 +152,113 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = HeroDocument | PageDocument;
+type ServicesListComponentDocumentDataSlicesSlice = ServiceCardSlice;
+
+/**
+ * Content for Services List Component documents
+ */
+interface ServicesListComponentDocumentData {
+  /**
+   * Slice Zone field in *Services List Component*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_list_component.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ServicesListComponentDocumentDataSlicesSlice>;
+}
+
+/**
+ * Services List Component document from Prismic
+ *
+ * - **API ID**: `services_list_component`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ServicesListComponentDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ServicesListComponentDocumentData>,
+    "services_list_component",
+    Lang
+  >;
+
+/**
+ * Item in *Settings → Navigation*
+ */
+export interface SettingsDocumentDataNavigationItem {
+  /**
+   * Label field in *Settings → Navigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Link field in *Settings → Navigation*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * CTA field in *Settings → Navigation*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: settings.navigation[].cta
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  cta: prismic.BooleanField;
+}
+
+/**
+ * Content for Settings documents
+ */
+interface SettingsDocumentData {
+  /**
+   * Navigation field in *Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  navigation: prismic.GroupField<Simplify<SettingsDocumentDataNavigationItem>>;
+}
+
+/**
+ * Settings document from Prismic
+ *
+ * - **API ID**: `settings`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type SettingsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<SettingsDocumentData>,
+    "settings",
+    Lang
+  >;
+
+export type AllDocumentTypes =
+  | HeroDocument
+  | PageDocument
+  | ServicesListComponentDocument
+  | SettingsDocument;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -341,6 +462,128 @@ export type ServiceCardSlice = prismic.SharedSlice<
   ServiceCardSliceVariation
 >;
 
+/**
+ * Item in *ServicesGrid → Default → Primary → Service card*
+ */
+export interface ServicesGridSliceDefaultPrimaryServiceCardItem {
+  /**
+   * Icon field in *ServicesGrid → Default → Primary → Service card*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.service_card[].icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Service title field in *ServicesGrid → Default → Primary → Service card*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.service_card[].service_title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  service_title: prismic.KeyTextField;
+
+  /**
+   * Service description field in *ServicesGrid → Default → Primary → Service card*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.service_card[].service_description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  service_description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *ServicesGrid → Default → Primary*
+ */
+export interface ServicesGridSliceDefaultPrimary {
+  /**
+   * Title field in *ServicesGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *ServicesGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Service card field in *ServicesGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.service_card[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  service_card: prismic.GroupField<
+    Simplify<ServicesGridSliceDefaultPrimaryServiceCardItem>
+  >;
+
+  /**
+   * Call to action link field in *ServicesGrid → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.cta_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  cta_link: prismic.LinkField;
+
+  /**
+   * CTA Label field in *ServicesGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: services_grid.default.primary.cta_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  cta_label: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for ServicesGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ServicesGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ServicesGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ServicesGrid*
+ */
+type ServicesGridSliceVariation = ServicesGridSliceDefault;
+
+/**
+ * ServicesGrid Shared Slice
+ *
+ * - **API ID**: `services_grid`
+ * - **Description**: ServicesGrid
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ServicesGridSlice = prismic.SharedSlice<
+  "services_grid",
+  ServicesGridSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -368,6 +611,12 @@ declare module "@prismicio/client" {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      ServicesListComponentDocument,
+      ServicesListComponentDocumentData,
+      ServicesListComponentDocumentDataSlicesSlice,
+      SettingsDocument,
+      SettingsDocumentData,
+      SettingsDocumentDataNavigationItem,
       AllDocumentTypes,
       HeroSlice,
       HeroSliceDefaultPrimary,
@@ -381,6 +630,11 @@ declare module "@prismicio/client" {
       ServiceCardSliceDefaultPrimary,
       ServiceCardSliceVariation,
       ServiceCardSliceDefault,
+      ServicesGridSlice,
+      ServicesGridSliceDefaultPrimaryServiceCardItem,
+      ServicesGridSliceDefaultPrimary,
+      ServicesGridSliceVariation,
+      ServicesGridSliceDefault,
     };
   }
 }

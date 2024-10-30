@@ -1,0 +1,83 @@
+{
+  "id": "services_grid",
+  "type": "SharedSlice",
+  "name": "ServicesGrid",
+  "description": "ServicesGrid",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": ""
+          }
+        },
+        "service_card": {
+          "type": "Group",
+          "config": {
+            "label": "Service card",
+            "repeat": true,
+            "fields": {
+              "icon": {
+                "type": "Image",
+                "config": {
+                  "label": "Icon",
+                  "constraint": {
+                    "width": 50,
+                    "height": 50
+                  },
+                  "thumbnails": []
+                }
+              },
+              "service_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Service title",
+                  "placeholder": ""
+                }
+              },
+              "service_description": {
+                "type": "Text",
+                "config": {
+                  "label": "Service description",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "cta_link": {
+          "type": "Link",
+          "config": {
+            "label": "Call to action link",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "select": null
+          }
+        },
+        "cta_label": {
+          "type": "Text",
+          "config": {
+            "label": "CTA Label",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

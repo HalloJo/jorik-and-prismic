@@ -2,6 +2,7 @@ import "./globals.css";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import { Inter } from "next/font/google";
+import Header from "@/components/Header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="bg-red-400">{children}</body>
+      <body className="bg-red-400">
+        <Header />
+        <main>{children}</main>
+      </body>
       <PrismicPreview repositoryName={repositoryName} />
     </html>
   );
