@@ -276,6 +276,71 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
+/**
+ * Primary content in *ServiceCard → Default → Primary*
+ */
+export interface ServiceCardSliceDefaultPrimary {
+  /**
+   * Icon field in *ServiceCard → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: service_card.default.primary.icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Title field in *ServiceCard → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Service title..
+   * - **API ID Path**: service_card.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *ServiceCard → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Description of service
+   * - **API ID Path**: service_card.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for ServiceCard Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ServiceCardSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ServiceCardSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ServiceCard*
+ */
+type ServiceCardSliceVariation = ServiceCardSliceDefault;
+
+/**
+ * ServiceCard Shared Slice
+ *
+ * - **API ID**: `service_card`
+ * - **Description**: ServiceCard
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ServiceCardSlice = prismic.SharedSlice<
+  "service_card",
+  ServiceCardSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -312,6 +377,10 @@ declare module "@prismicio/client" {
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      ServiceCardSlice,
+      ServiceCardSliceDefaultPrimary,
+      ServiceCardSliceVariation,
+      ServiceCardSliceDefault,
     };
   }
 }

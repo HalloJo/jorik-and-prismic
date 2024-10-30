@@ -1,0 +1,44 @@
+{
+  "id": "service_card",
+  "type": "SharedSlice",
+  "name": "ServiceCard",
+  "description": "ServiceCard",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "icon": {
+          "type": "Image",
+          "config": {
+            "label": "Icon",
+            "constraint": {
+              "width": 50,
+              "height": 50
+            },
+            "thumbnails": []
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Service title.."
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": "Description of service"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
