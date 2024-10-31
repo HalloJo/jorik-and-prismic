@@ -339,9 +339,87 @@ export type HeroSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Hero → reverse → Primary*
+ */
+export interface HeroSliceReversePrimary {
+  /**
+   * Primary heading field in *Hero → reverse → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Heading for section
+   * - **API ID Path**: hero.reverse.primary.primary_heading
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  primary_heading: prismic.KeyTextField;
+
+  /**
+   * Description field in *Hero → reverse → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.reverse.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *Hero → reverse → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.reverse.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField;
+
+  /**
+   * Button Label field in *Hero → reverse → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.reverse.primary.button_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  button_label: prismic.KeyTextField;
+
+  /**
+   * Image field in *Hero → reverse → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.reverse.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Text field field in *Hero → reverse → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Type some text..
+   * - **API ID Path**: hero.reverse.primary.text_field
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  text_field: prismic.KeyTextField;
+}
+
+/**
+ * reverse variation for Hero Slice
+ *
+ * - **API ID**: `reverse`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSliceReverse = prismic.SharedSliceVariation<
+  "reverse",
+  Simplify<HeroSliceReversePrimary>,
+  never
+>;
+
+/**
  * Slice variation for *Hero*
  */
-type HeroSliceVariation = HeroSliceDefault;
+type HeroSliceVariation = HeroSliceDefault | HeroSliceReverse;
 
 /**
  * Hero Shared Slice
@@ -620,8 +698,10 @@ declare module "@prismicio/client" {
       AllDocumentTypes,
       HeroSlice,
       HeroSliceDefaultPrimary,
+      HeroSliceReversePrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      HeroSliceReverse,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,

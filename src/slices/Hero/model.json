@@ -61,6 +61,64 @@
         }
       },
       "items": {}
+    },
+    {
+      "id": "reverse",
+      "name": "reverse",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "primary_heading": {
+          "type": "Text",
+          "config": {
+            "label": "Primary heading",
+            "placeholder": "Heading for section"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph"
+          }
+        },
+        "button_link": {
+          "type": "Link",
+          "config": {
+            "label": "Button Link",
+            "placeholder": "",
+            "allowTargetBlank": false,
+            "select": null
+          }
+        },
+        "button_label": {
+          "type": "Text",
+          "config": {
+            "label": "Button Label",
+            "placeholder": ""
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "text_field": {
+          "type": "Text",
+          "config": {
+            "label": "Text field",
+            "placeholder": "Type some text.."
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }
