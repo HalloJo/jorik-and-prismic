@@ -8,13 +8,23 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 
 const AnimatedContent = ({ slice }: { slice: Content.HeroSlice }) => {
   const container = useRef(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
   gsap.registerPlugin(useGSAP);
 
   useGSAP(
     () => {
+      if (prefersReducedMotion) {
+        gsap.set(
+          ".hero__heading, .hero__description, .hero__button, .hero__image",
+          { opacity: 1 },
+        );
+        return;
+      }
+
       const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
 
       tl.fromTo(".hero__heading", { y: 20 }, { y: 0, opacity: 1, duration: 1 });
