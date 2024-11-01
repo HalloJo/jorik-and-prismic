@@ -13,7 +13,7 @@ type PrismicTextProps = {
 const Typography = ({ type, field, className }: PrismicTextProps) => {
   const baseStyles = "text-gray-800";
   const typeStyles = {
-    h1: "text-4xl font-bold",
+    h1: "text-7xl font-bold",
     h2: "text-3xl font-semibold",
     h3: "text-2xl font-medium",
     h4: "text-xl font-medium",
