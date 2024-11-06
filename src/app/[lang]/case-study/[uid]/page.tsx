@@ -6,17 +6,25 @@ import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import { PrismicNextImage } from "@prismicio/next";
 import { asText } from "@prismicio/client";
+import { getLocales } from "@/utilities/getLocales";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import Header from "@/components/Header";
 
-type Params = { uid: string };
+type Params = { uid: string; lang: string };
 
 export default async function Page({ params }: { params: Params }) {
   const client = createClient();
+  const lang = params.lang;
   const page = await client
-    .getByUID("case_page", params.uid)
+    .getByUID("case_page", params.uid, { lang: params.lang })
     .catch(() => notFound());
+
+  const locales = await getLocales(page, client);
 
   return (
     <div>
+      <LanguageSwitcher locales={locales} />
+      <Header lang={lang} locales={locales} />
       <PrismicText field={page.data.company} />
       <PrismicText field={page.data.description} />
       <PrismicNextImage field={page.data.company_image} />
@@ -31,9 +39,12 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const client = createClient();
+  const lang = params.lang;
   const page = await client
-    .getByUID("case_page", params.uid)
+    .getByUID("case_page", params.uid, { lang: lang })
     .catch(() => notFound());
+
+  const locales = await getLocales(page, client);
 
   return {
     title: `${page.data.meta_title || asText(page.data.company) + " Case study"}`,
@@ -46,6 +57,6 @@ export async function generateStaticParams() {
   const pages = await client.getAllByType("case_page");
 
   return pages.map((page) => {
-    return { uid: page.uid };
+    return { uid: page.uid, lang: page.lang };
   });
 }

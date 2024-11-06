@@ -17,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="">
-        <Header />
         <main>{children}</main>
       </body>
       <PrismicPreview repositoryName={repositoryName} />

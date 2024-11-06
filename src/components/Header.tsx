@@ -3,9 +3,9 @@ import { PrismicNextLink } from "@prismicio/next";
 import React from "react";
 import ButtonLink from "./ButtonLink";
 
-const Header = async () => {
+const Header = async ({ lang, locales }: { lang: any; locales: any }) => {
   const client = createClient();
-  const settings = await client.getSingle("settings");
+  const settings = await client.getSingle("settings", { lang });
 
   return (
     <header>
