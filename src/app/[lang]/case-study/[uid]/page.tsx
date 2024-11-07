@@ -9,6 +9,7 @@ import { asText } from "@prismicio/client";
 import { getLocales } from "@/utilities/getLocales";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import Header from "@/components/Header";
+import { Layout } from "@/components/Layout";
 
 type Params = { uid: string; lang: string };
 
@@ -20,15 +21,16 @@ export default async function Page({ params }: { params: Params }) {
     .catch(() => notFound());
 
   const locales = await getLocales(page, client);
+  const settings = await client.getSingle("settings", { lang });
 
   return (
     <div>
-      <LanguageSwitcher locales={locales} />
-      <Header lang={lang} locales={locales} />
-      <PrismicText field={page.data.company} />
-      <PrismicText field={page.data.description} />
-      <PrismicNextImage field={page.data.company_image} />
-      <SliceZone slices={page.data.slices} components={components} />
+      <Layout locales={locales} settings={settings}>
+        <PrismicText field={page.data.company} />
+        <PrismicText field={page.data.description} />
+        <PrismicNextImage field={page.data.company_image} />
+        <SliceZone slices={page.data.slices} components={components} />
+      </Layout>
     </div>
   );
 }

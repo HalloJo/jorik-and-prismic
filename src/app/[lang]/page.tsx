@@ -8,6 +8,7 @@ import { components } from "@/slices";
 import { getLocales } from "@/utilities/getLocales";
 import Header from "@/components/Header";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Layout } from "@/components/Layout";
 
 // This component renders your homepage.
 //
@@ -45,14 +46,15 @@ export default async function Index({ params }: { params: Params }) {
   const home = await client.getByUID("page", "home", { lang });
 
   const locales = await getLocales(home, client);
+  const settings = await client.getSingle("settings", { lang });
 
   console.log(locales);
 
   return (
     <>
-      <LanguageSwitcher locales={locales} />
-      <Header lang={lang} locales={locales} />
-      <SliceZone slices={home.data.slices} components={components} />
+      <Layout locales={locales} settings={settings}>
+        <SliceZone slices={home.data.slices} components={components} />
+      </Layout>
     </>
   );
 }

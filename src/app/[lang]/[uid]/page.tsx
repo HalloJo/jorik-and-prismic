@@ -8,7 +8,7 @@ import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import { getLocales } from "@/utilities/getLocales";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import Header from "@/components/Header";
+import { Layout } from "@/components/Layout";
 
 type Params = { uid: string; lang: string };
 
@@ -48,12 +48,13 @@ export default async function Page({ params }: { params: Params }) {
     .catch(() => notFound());
 
   const locales = await getLocales(page, client);
+  const settings = await client.getSingle("settings", { lang });
 
   return (
     <>
-      <LanguageSwitcher locales={locales} />
-      <Header lang={lang} locales={locales} />
-      <SliceZone slices={page.data.slices} components={components} />
+      <Layout locales={locales} settings={settings}>
+        <SliceZone slices={page.data.slices} components={components} />
+      </Layout>
     </>
   );
 }
