@@ -33,14 +33,15 @@
             "repeat": true,
             "fields": {
               "icon": {
-                "type": "Image",
+                "type": "Select",
                 "config": {
                   "label": "Icon",
-                  "constraint": {
-                    "width": 50,
-                    "height": 50
-                  },
-                  "thumbnails": []
+                  "placeholder": "Icon for feature",
+                  "options": [
+                    "development",
+                    "growth"
+                  ],
+                  "default_value": "development"
                 }
               },
               "service_title": {

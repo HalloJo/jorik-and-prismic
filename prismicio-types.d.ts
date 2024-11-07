@@ -727,12 +727,13 @@ export interface ServicesGridSliceDefaultPrimaryServiceCardItem {
   /**
    * Icon field in *ServicesGrid → Default → Primary → Service card*
    *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
+   * - **Field Type**: Select
+   * - **Placeholder**: Icon for feature
+   * - **Default Value**: development
    * - **API ID Path**: services_grid.default.primary.service_card[].icon
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/field#select
    */
-  icon: prismic.ImageField<never>;
+  icon: prismic.SelectField<"development" | "growth", "filled">;
 
   /**
    * Service title field in *ServicesGrid → Default → Primary → Service card*

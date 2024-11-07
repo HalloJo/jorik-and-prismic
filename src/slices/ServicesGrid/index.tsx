@@ -1,3 +1,4 @@
+import { icons } from "@/app/images/icons";
 import ButtonLink from "@/components/ButtonLink";
 import Typography from "@/components/Typography";
 import { Content } from "@prismicio/client";
@@ -25,7 +26,9 @@ const ServicesGrid = ({ slice }: ServicesGridProps): JSX.Element => {
       <ul>
         {slice.primary.service_card.map((item) => (
           <li key={item.service_title}>
-            <PrismicNextImage field={item.icon} />
+            {/* <PrismicNextImage field={item.icon} /> */}
+            {item.icon && <>{icons[item.icon]}</>}
+
             <Typography type={"h3"} field={item.service_title} />
             <Typography type={"p"} field={item.service_description} />
           </li>
