@@ -6,9 +6,9 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { getLocales } from "@/utilities/getLocales";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+
 import { Layout } from "@/components/Layout";
+import { getLocales } from "@/utilities/getLocales";
 
 type Params = { uid: string; lang: string };
 

@@ -5,10 +5,9 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { getLocales } from "@/utilities/getLocales";
-import Header from "@/components/Header";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+
 import { Layout } from "@/components/Layout";
+import { getLocales } from "@/utilities/getLocales";
 
 // This component renders your homepage.
 //
@@ -32,6 +31,9 @@ export async function generateMetadata({
   return {
     title: prismic.asText(home.data.title),
     description: home.data.meta_description,
+    icons: {
+      icon: "/icon.png",
+    },
     openGraph: {
       title: home.data.meta_title ?? undefined,
       images: [{ url: home.data.meta_image.url ?? "" }],
