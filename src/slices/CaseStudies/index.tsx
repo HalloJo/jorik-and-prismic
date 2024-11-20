@@ -27,10 +27,13 @@ const CaseStudies = async ({
   const caseStudies = await Promise.all(
     slice.primary.case.map(async (item) => {
       if (isFilled.contentRelationship(item.case_study)) {
-        return await client.getByID<Content.CasePageDocument>(
+        console.log("Fetching case study with ID:", item.case_study.id);
+        const response = await client.getByID<Content.CasePageDocument>(
           item.case_study.id,
-          { lang: context.lang },
+          context,
         );
+        console.log("Request URL:", client.documentAPIEndpoint);
+        return response;
       }
     }),
   );

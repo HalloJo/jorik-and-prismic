@@ -55,7 +55,11 @@ export default async function Index({ params }: { params: Params }) {
   return (
     <>
       <Layout locales={locales} settings={settings}>
-        <SliceZone slices={home.data.slices} components={components} />
+        <SliceZone
+          slices={home.data.slices}
+          components={components}
+          context={params}
+        />
       </Layout>
     </>
   );
