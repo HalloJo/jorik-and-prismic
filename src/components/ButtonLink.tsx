@@ -1,10 +1,15 @@
 import { PrismicNextLink, PrismicNextLinkProps } from "@prismicio/next";
 import React from "react";
 
-const ButtonLink = ({ className, ...restProps }: PrismicNextLinkProps) => {
+const ButtonLink = ({
+  className,
+  prefetch,
+  ...restProps
+}: PrismicNextLinkProps) => {
   return (
     <PrismicNextLink
-      className={`${className}, rounded-md bg-red-500 px-4 py-2 text-xl transition hover:bg-red-700`}
+      prefetch={prefetch ?? undefined}
+      className={`${className} rounded-md bg-red-500 px-4 py-2 text-xl transition hover:bg-red-700`}
       {...restProps}
     />
   );
