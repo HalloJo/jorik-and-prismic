@@ -1,4 +1,5 @@
 import { createClient } from "@/prismicio";
+import { SliceContext } from "@/types/SliceContext";
 import { Content, isFilled } from "@prismicio/client";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import {
@@ -10,21 +11,29 @@ import {
 /**
  * Props for `CaseStudies`.
  */
-export type CaseStudiesProps = SliceComponentProps<Content.CaseStudiesSlice>;
+export type CaseStudiesProps = SliceComponentProps<
+  Content.CaseStudiesSlice,
+  SliceContext
+>;
 
 /**
  * Component for "CaseStudies" Slices.
  */
 const CaseStudies = async ({
   slice,
+  context,
 }: CaseStudiesProps): Promise<JSX.Element> => {
   const client = createClient();
   const caseStudies = await Promise.all(
     slice.primary.case.map(async (item) => {
       if (isFilled.contentRelationship(item.case_study)) {
-        return await client.getByID<Content.CasePageDocument>(
+        console.log("Fetching case study with ID:", item.case_study.id);
+        const response = await client.getByID<Content.CasePageDocument>(
           item.case_study.id,
+          context,
         );
+        console.log("Request URL:", client.documentAPIEndpoint);
+        return response;
       }
     }),
   );

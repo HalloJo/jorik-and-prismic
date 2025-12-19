@@ -7,7 +7,10 @@ import * as prismic from "@prismicio/client";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 
-type Params = { uid: string };
+import { Layout } from "@/components/Layout";
+import { getLocales } from "@/utilities/getLocales";
+
+type Params = { uid: string; lang: string };
 
 /**
  * This page renders a Prismic Document dynamically based on the URL.
@@ -20,7 +23,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const client = createClient();
   const page = await client
-    .getByUID("page", params.uid)
+    .getByUID("page", params.uid, { lang: params.lang })
     .catch(() => notFound());
 
   return {
@@ -39,11 +42,21 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: Params }) {
   const client = createClient();
+  const lang = params.lang;
   const page = await client
-    .getByUID("page", params.uid)
+    .getByUID("page", params.uid, { lang: lang })
     .catch(() => notFound());
 
-  return <SliceZone slices={page.data.slices} components={components} />;
+  const locales = await getLocales(page, client);
+  const settings = await client.getSingle("settings", { lang });
+
+  return (
+    <>
+      <Layout locales={locales} settings={settings}>
+        <SliceZone slices={page.data.slices} components={components} />
+      </Layout>
+    </>
+  );
 }
 
 export async function generateStaticParams() {
@@ -60,6 +73,6 @@ export async function generateStaticParams() {
    * Define a path for every Document.
    */
   return pages.map((page) => {
-    return { uid: page.uid };
+    return { uid: page.uid, lang: page.lang };
   });
 }

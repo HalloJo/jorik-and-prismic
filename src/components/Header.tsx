@@ -2,11 +2,9 @@ import { createClient } from "@/prismicio";
 import { PrismicNextLink } from "@prismicio/next";
 import React from "react";
 import ButtonLink from "./ButtonLink";
+import { SettingsDocument } from "../../prismicio-types";
 
-const Header = async () => {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
-
+const Header = async ({ settings }: { settings: SettingsDocument }) => {
   return (
     <header>
       Header

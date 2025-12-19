@@ -53,7 +53,7 @@ const AnimatedContent = ({ slice }: { slice: Content.HeroSlice }) => {
         start: "top top",
         end: "bottom bottom",
         scrub: 0.5,
-        markers: true,
+        // markers: true,
       },
     });
 
